@@ -34,6 +34,8 @@ const Register: FC = () => {
     const handleRegister = async (e: FormEvent) => {
         e.preventDefault();
 
+        if (!validateFormFields()) return;
+
         // Call the register mutation
         mutate({
             name,
@@ -52,8 +54,21 @@ const Register: FC = () => {
                 setErrors(error.response.data.errors);
             }
         })
-
     }
+
+    const validateFormFields = () => {
+        const newErrors = {
+            name: name ? '' : 'Name is required',
+            username: username ? '' : 'Username is required',
+            email: email ? '' : 'Email is required',
+            password: password ? '' : 'Password is required',
+        };
+
+        setErrors(newErrors);
+
+        return Object.values(newErrors).every((msg) => msg === '');
+    }
+
 
     return (
         <div className="row justify-content-center">
@@ -70,7 +85,7 @@ const Register: FC = () => {
                                             <label className="mb-1 fw-bold">Full Name</label>
                                             <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="form-control"
                                                    placeholder="Full Name" />
-                                            {errors.Name && <div className="alert alert-danger mt-2 rounded-4">{errors.Name}</div>}
+                                            {errors.name && <div className="alert alert-danger mt-2 rounded-4">{errors.name}</div>}
                                         </div>
                                     </div>
                                     <div className="col-md-6 mb-3">
@@ -78,7 +93,7 @@ const Register: FC = () => {
                                             <label className="mb-1 fw-bold">Username</label>
                                             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="form-control"
                                                    placeholder="Username" />
-                                            {errors.Username && <div className="alert alert-danger mt-2 rounded-4">{errors.Username}</div>}
+                                            {errors.username && <div className="alert alert-danger mt-2 rounded-4">{errors.username}</div>}
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +104,7 @@ const Register: FC = () => {
                                             <label className="mb-1 fw-bold">Email address</label>
                                             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control"
                                                    placeholder="Email Address" />
-                                            {errors.Email && <div className="alert alert-danger mt-2 rounded-4">{errors.Email}</div>}
+                                            {errors.email && <div className="alert alert-danger mt-2 rounded-4">{errors.email}</div>}
                                         </div>
                                     </div>
                                     <div className="col-md-6 mb-3">
@@ -97,7 +112,7 @@ const Register: FC = () => {
                                             <label className="mb-1 fw-bold">Password</label>
                                             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control"
                                                    placeholder="Password" />
-                                            {errors.Password && <div className="alert alert-danger mt-2 rounded-4">{errors.Password}</div>}
+                                            {errors.password && <div className="alert alert-danger mt-2 rounded-4">{errors.password}</div>}
                                         </div>
                                     </div>
                                 </div>
