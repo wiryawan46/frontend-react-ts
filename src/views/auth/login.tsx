@@ -14,7 +14,7 @@ const Login: FC = () => {
 
     const navigate = useNavigate();
     const { mutate, isPending } = useLogin();
-    const { setIsAuthenticated } = useContext(AuthContext)!;
+    const { checkAuth } = useContext(AuthContext)!;
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [errors, setErrors] = useState<ValidationErrors>({});
@@ -29,10 +29,10 @@ const Login: FC = () => {
             password
         }, {
             onSuccess: (data: any) => {
-
-                //set token to cookies
+                console.log('Login successful, setting cookies...');
+                
+                // Set cookies
                 Cookies.set('token', data.data.token);
-
                 Cookies.set('user', JSON.stringify({
                     id: data.data.user.id,
                     name: data.data.user.name,
@@ -40,25 +40,46 @@ const Login: FC = () => {
                     email: data.data.user.email
                 }));
 
-                setIsAuthenticated(true);
-
-                navigate('/admin/dashboard');
+                // Force check auth state and then navigate
+                console.log('Checking auth state...');
+                const isAuth = checkAuth();
+                console.log('Auth state after check:', isAuth);
+                
+                if (isAuth) {
+                    console.log('Navigating to /admin/dashboard');
+                    navigate('/admin/dashboard', { replace: true });
+                } else {
+                    console.error('Authentication check failed after login');
+                    setErrors({ Error: 'Failed to authenticate. Please try again.' });
+                }
             },
             onError: (error: any) => {
-                setErrors(error.response.data.errors);
+                if (error.response && error.response.status === 401) {
+                    setErrors({ Error: 'Username or Password is incorrect' });
+                } else if (error.response.data.errors) {
+                    setErrors(error.response.data.errors);
+                } else {
+                    setErrors({ Error: 'An error occurred during login. Please try again.' });
+                }
             }
         })
     }
 
     const validateFormFields = () => {
+        // Clear previous errors
+        setErrors({});
+        
         const newErrors = {
             Username: username ? '' : 'Username is required',
             Password: password ? '' : 'Password is required',
         };
 
-        setErrors(newErrors);
+        const hasErrors = !Object.values(newErrors).every((msg) => msg === '');
+        if (hasErrors) {
+            setErrors(newErrors);
+        }
 
-        return Object.values(newErrors).every((msg) => msg === '');
+        return !hasErrors;
     }
 
     return (
