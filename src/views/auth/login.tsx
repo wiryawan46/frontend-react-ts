@@ -1,6 +1,6 @@
 // import FC from react
 // import FC from react
-import {FC, useState, useContext, FormEvent} from 'react';
+import { type FC, useState, useContext, type FormEvent } from 'react';
 import { useNavigate } from "react-router";
 import { useLogin } from "../../hooks/auth/userLogin.tsx";
 import Cookies from "js-cookie";
@@ -14,7 +14,7 @@ const Login: FC = () => {
 
     const navigate = useNavigate();
     const { mutate, isPending } = useLogin();
-    const { checkAuth } = useContext(AuthContext)!;
+    const { setIsAuthenticated } = useContext(AuthContext)!;
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [errors, setErrors] = useState<ValidationErrors>({});
@@ -32,26 +32,19 @@ const Login: FC = () => {
                 console.log('Login successful, setting cookies...');
                 
                 // Set cookies
-                Cookies.set('token', data.data.token);
+                console.log('API response:', data.data.data);
+                Cookies.set('token', data.data.data.token);
                 Cookies.set('user', JSON.stringify({
-                    id: data.data.user.id,
-                    name: data.data.user.name,
-                    username: data.data.user.username,
-                    email: data.data.user.email
+                    id: data.data.data.id,
+                    name: data.data.data.name,
+                    username: data.data.data.username,
+                    email: data.data.data.email
                 }));
+                console.log('Cookies after set:', Cookies.get());
 
-                // Force check auth state and then navigate
-                console.log('Checking auth state...');
-                const isAuth = checkAuth();
-                console.log('Auth state after check:', isAuth);
-                
-                if (isAuth) {
-                    console.log('Navigating to /admin/dashboard');
-                    navigate('/admin/dashboard', { replace: true });
-                } else {
-                    console.error('Authentication check failed after login');
-                    setErrors({ Error: 'Failed to authenticate. Please try again.' });
-                }
+                // Set auth state and navigate
+                setIsAuthenticated(true);
+                navigate('/admin/dashboard', { replace: true });
             },
             onError: (error: any) => {
                 if (error.response && error.response.status === 401) {
