@@ -1,12 +1,11 @@
 import { useContext } from "react";
 import Cookies from "js-cookie";
-import { userNavigate } from "react-router"
-import { AuthContext } from "../../context/authContext";
+import { useNavigate } from "react-router";
+import { AuthContext } from "../../context/AuthContext.tsx";
 
-export const useLogout = () => {
-    const authContext = useContext(AuthContext);
-    const { setIsAuthenticated } = authContext;
-    const navigate = userNavigate();
+export const useLogout = (): (() => void) => {
+    const { setIsAuthenticated } = useContext(AuthContext);
+    const navigate = useNavigate();
     const logout = (): void => {
         Cookies.remove("token");
         Cookies.remove("user");
