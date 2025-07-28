@@ -4,6 +4,7 @@ import { Routes, Route, Navigate} from "react-router";
 import Home from "../views/home/index.tsx"
 import Register from "../views/auth/register.tsx"
 import Login from "../views/auth/login.tsx"
+import Dashboard from "../views/admin/dashboard";
 
 export default function AppRoutes() {
     // Menggunakan useContext untuk mendapatkan nilai dari AuthContext
@@ -23,6 +24,11 @@ export default function AppRoutes() {
             {/* route "/login" */}
             <Route path="/login" element={
                 isAuthenticated ? <Navigate to="/admin/dashboard" replace /> : <Login />
+            } />
+
+            {/* route "/admin/dashboard" */}
+            <Route path="/admin/dashboard" element={
+                isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />
             } />
         </Routes>
     );
