@@ -1,69 +1,40 @@
-# React + TypeScript + Vite
+# FullStack Developer Dengan Golang dan React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Project ini dibuat dari ebook Santri Koding dengan tujuan yang ingin menguasai skill **FullStack Development** menggunakan dua teknologi **modern** yang sedang naik daun, yaitu **Golang** di sisi backend dan **React + TypeScript** di sisi frontend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠 Teknologi yang Digunakan
 
-## Expanding the ESLint configuration
+### Golang (Go)
+Golang adalah bahasa pemrograman yang dikembangkan oleh **Google** dan dikenal karena kecepatan kompilasinya, efisiensi performa, serta kemudahan dalam membangun aplikasi *backend* yang ringan namun sangat *scalable*. Saat ini, Golang telah menjadi pilihan banyak perusahaan besar untuk membangun *microservices* dan aplikasi backend berskala besar.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### React + TypeScript
+React adalah *library* JavaScript open-source yang digunakan untuk membangun *user interface* yang interaktif dan dinamis. Ketika dikombinasikan dengan **TypeScript**, pengembangan menjadi lebih kuat dan terstruktur karena adanya sistem pengetikan statis.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### TanStack Query
+Library powerful untuk manajemen *fetching* data dari API di sisi **React**, membuat integrasi API menjadi lebih efisien dan menyenangkan.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📚 Materi yang Akan Dipelajari
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- ✅ Pengenalan dan Fundamental **Golang**
+- ✅ Setup *Project* Golang dengan **Gin**
+- ✅ Penggunaan **GORM** untuk ORM
+- ✅ Autentikasi dengan **JWT** (JSON Web Token)
+- ✅ Penggunaan *Middleware*
+- ✅ Membangun **RESTful API Authentication**
+- ✅ Membuat **API CRUD** untuk *Users*
+- ✅ Setup Project **React + TypeScript**
+- ✅ Integrasi Autentikasi di **React**
+- ✅ Membuat *Auth Context* di React
+- ✅ Penggunaan *Custom Hooks*
+- ✅ *Fetching* data dari API menggunakan **TanStack Query**
+- ✅ *Routing* dengan **React Router**
+- ✅ CRUD Data *Users* dari sisi **Frontend**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Backend Project ada disini :
+https://github.com/wiryawan46/backend-golang
