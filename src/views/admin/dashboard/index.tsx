@@ -8,7 +8,6 @@ import {useAuthUser} from "../../../hooks/auth/useAuthUser.tsx";
 const Dashboard: FC = () => {
 
     const user = useAuthUser()
-    console.log(user);
     return (
         <div className="container mt-5 mb-5">
             <div className="row">
